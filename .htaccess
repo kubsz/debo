@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /
+RewriteRule ^user/([^/]+) user.php?user=$1 [L,QSA]
+ErrorDocument 403 /include/404.php
+ErrorDocument 404 /include/404.php

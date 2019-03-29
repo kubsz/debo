@@ -142,3 +142,22 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+.section-404 {
+    background:#0096c8;
+    color:#fff;
+    text-align:center;
+    height:100%;
+}
+.section-404 h1 {
+    color:#fff !important;
+    font-size:46px;
+    margin-top:5%;
+}
+.section-404 a {
+    color:#fff !important;
+    font-size:32px;
+    text-decoration:none;
+}
+.section-404 a:hover {
+    text-decoration:underline;
+}
