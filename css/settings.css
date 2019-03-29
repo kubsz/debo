@@ -1,0 +1,233 @@
+body {
+    background:#fff;
+}
+html {
+    overflow-y: scroll;
+}
+.nav {
+    -webkit-box-shadow: 0px 10px 35px -7px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 10px 35px -7px rgba(0,0,0,0.1);
+    box-shadow: 0px 10px 35px -7px rgba(0,0,0,0.1);
+}
+.margined {
+    z-index:-2 !important;
+}
+.section {
+    position: relative;
+    z-index: -100;
+    overflow:hidden;
+    min-height:calc(100vh - 60px);
+    background:#fbfbfb;
+    background-image: linear-gradient(to bottom, #ffffff, #e8e9ee, #d0d5dd, #b6c1cd, #9aaebb);
+}
+.section > .margined > h1 {
+    font-weight:400;
+    margin:40px 0 0 0;
+    letter-spacing:2px;
+    font-size:38px;
+    color:#fff;
+}
+.section > .margined > h4 {
+    font-weight:400;
+    margin:5px 0 70px 0;
+    font-size:20px;
+    color:#fff;
+}
+.blue-section {
+    background:#0096c8;
+    height:170px;
+    position:absolute;
+    width:100%;
+    z-index:-1;
+}
+.box {
+    overflow:hidden;
+    height:150px;
+    box-shadow:0 0 20px 0 rgba(0,0,0,.2);
+    background:#eee;
+}
+.left-box {
+    float:left;
+    width:75%;
+}
+.inner-box {
+    margin:15px 0 0 25px;
+}
+.inner-box > h2 {
+    color:rgba(40,40,40,0.75);
+    font-weight:500;
+    margin:0;
+}
+.inner-box > h3 {
+    margin:10px 0;
+    font-weight:400;
+    color:rgba(40,40,40,0.6);
+}
+.inner-box > p {
+    margin:0 0 30px 0;
+}
+.blue-text {
+    color:#0096c8;
+}
+.right-box {
+    float:left;
+    width:25%;
+    text-align:center;
+    background:#0096c8;
+    cursor:pointer;
+    height:100%;
+    overflow:hidden;
+}
+.right-box > h2 {
+    margin-top:40px;
+    font-size:24px;
+    color:#eee;
+    font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+.right-box:hover {
+    filter:brightness(.8);
+}
+.modal-background {
+    position:fixed;
+    z-index:998;
+    width:100vw;
+    height:100vh;
+    transition:.3s ease all;
+    display:none;
+    cursor:crosshair;
+    background:rgba(0,0,0,0);
+}
+.modal {
+    background:#fff;
+    width:800px;
+    height:500px;
+    max-width:80vw;
+    max-height:80vh;
+    margin:150px auto;
+    box-shadow:0 5px 20px 0px rgba(0,0,0,.1);
+    transform:translateY(-200%);
+    transition:.7s ease all;
+    border:1px solid #cfd1d8;
+    border-radius:3px;
+    position:relative;
+    cursor:default;
+    padding:10px;
+}
+.login-modal {
+    height:310px;
+}
+.inner-modal {
+    margin:20px;
+}
+.inner-modal > h2 {
+    font-weight:400;
+    letter-spacing:1px;
+    text-align:left;
+    margin:0;
+    transform:translateY(-5px)
+}
+.inner-modal > h4 {
+    font-weight:400;
+    letter-spacing:1px;
+    text-align:left;
+    margin:-5px 0 5px 0;
+}
+.splitter {
+    position:absolute;
+    top:100px;
+    width:100%;
+    left:0;
+    height:1px;
+    background:rgba(0,0,0,.15);
+    margin:0;
+}
+input {
+    padding:30px 20px 8px 20px;
+    border-radius:2px;
+    border:1px solid rgba(0,0,0,.15);
+    width:calc(100% - 40px);
+    height:30px;
+    font-size:18px;
+    outline:0;
+}
+input::placeholder {
+    font-weight:600;
+    color:rgba(0,0,0,.35)
+}
+input {
+    font-size:17px;
+    background:rgba(0,0,0,.03)
+}
+input:focus {
+    border-color:#0096c8;
+}
+input[type='password'] {
+    margin-bottom:16px;
+}
+input[type='password']:nth-of-type(3n) {
+    margin-bottom:0;
+}
+label {
+     position:absolute;
+     font-size:10px;
+     letter-spacing:1px;
+     font-weight:600;
+     text-transform:uppercase;
+     margin:15px 0 0 20px;
+}
+.submit-button {
+    margin-top:20px;
+    background:#0096c8;
+    width:100%;
+    padding:5px 10px;
+    border:3px solid #0096c8;
+    outline:0;
+    font-family:inherit;
+    text-transform:uppercase;
+    font-size:22px;
+    color:#fff;
+    letter-spacing:2px;
+    font-weight:500;
+    cursor:pointer;
+    transition:.2s ease all;
+}
+.submit-button:hover {
+    color:#0096c8;
+    background:rgba(0,150,200,0);
+}
+.error-icon {
+    color:#dd000a;
+    font-size:32px;
+    position:absolute;
+    right:40px;
+    bottom:100px;
+    display:none;
+}
+.error-text {
+    position:absolute;
+    right:40px;
+    bottom:132px;
+    color:#dd000a;
+    font-size:14px;
+}
+.error-border {
+    border-color:#dd000a !important;
+}
+.valid-border {
+    border-color:green !important;
+}
+
+#current-password-error-icon {
+    bottom:274px;
+}
+#current-password-error-text {
+    bottom:305px;
+}
+#new-password-error-icon {
+    bottom:188px;
+}
+#new-password-error-text {
+    bottom:219px;
+}
