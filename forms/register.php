@@ -82,10 +82,12 @@ if($error == false) {
     $ps->execute();
     $result = $ps->get_result();
 
+    $last_id = mysqli_insert_id($conn);
+
     $sql = "INSERT INTO `user_images`(`user_id`)VALUES(?)";
 
     $ps = $conn->prepare($sql);
-    $ps->bind_param("sssississ", $username, $phash, $email, $date, $first_name, $last_name, $date, $login_session, $ip);
+    $ps->bind_param("i", $last_id);
     $ps->execute();
     $result = $ps->get_result();
 

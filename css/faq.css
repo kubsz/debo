@@ -14,4 +14,23 @@
     position:relative;
     z-index:-2;
     min-height:100px;
+    padding-bottom:30px;
+    text-align:center;
+}
+.nav {
+    box-shadow:0 5px 5px rgba(0,0,0,.1)
+}
+h1 {
+    font-size:48px;
+}
+.question {
+    margin-bottom:30px;
+}
+.question > h3 {
+    font-size:32px;
+    margin:0 0 0px 0;
+}
+.question > p {
+    margin:0;
+    font-size:20px;
 }

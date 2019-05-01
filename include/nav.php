@@ -37,9 +37,9 @@
                     </div>
                     <a id='home-option' href='/'>Home</a>";
             }
-            else echo "<a id=\"home-option\" href=\"/\">Login/Register</a>";
+            else echo "<a id=\"home-option\" href=\"/\">Home</a>";
             ?>
-            <a id="faq-option" href="/frequently-asked-questions/">FAQ</a>
+            <a id='faq-option' href="/frequently-asked-questions/">Frequently Asked Questions</a>
         </div>
     </div>
 </div>

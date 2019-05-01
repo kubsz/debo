@@ -1,6 +1,14 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/include/checkuser.php");
 
+function parseContent($string) {
+    $split = explode('@', $string)[1]; //elliot memerson does!
+    $name = explode(' ', $split)[0]; //elliot memerson does!
+    $namelink = "<a class='link' href='/user/$name'>@$name</a>";
+    $newstring = str_replace("@".$name, $namelink, $string);
+    return $newstring;
+}
+
 if(!isset($_COOKIE['logsession'])) {
     include($_SERVER['DOCUMENT_ROOT']."/homepage.php");
     die();
@@ -22,7 +30,7 @@ else {
     $sql = "SELECT *
         FROM ((posts
         INNER JOIN users ON posts.author_id = users.user_id)
-        INNER JOIN user_images ON users.user_id = user_images.user_image_id)
+        INNER JOIN user_images ON users.user_id = user_images.user_id)
         WHERE author_id=$session_user_id";
     for($i = 0; $i < $count_followers; $i++) {
         if($count_followers > 0)
@@ -39,7 +47,7 @@ $result = $conn->query($sql);
 if($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $post_id[$count_post] = $row['post_id'];
-        $post_content[$count_post] = htmlentities($row['content']);
+        $post_content[$count_post] = parseContent(htmlentities($row['content']));
         $post_author_username[$count_post] = htmlentities($row['username']);
         if($row['image_name'] != null)
             $post_author_image[$count_post]  = htmlentities($row['image_name']);
@@ -87,8 +95,9 @@ if($result->num_rows > 0) {
 
         $comments_sql = "SELECT * FROM ((post_comments
         INNER JOIN users ON post_comments.post_commenter_id = users.user_id)
-        INNER JOIN user_images ON users.user_id = user_images.user_image_id)
-        WHERE post_id=$post_id[$count_post]";
+        INNER JOIN user_images ON users.user_id = user_images.user_id)
+        WHERE post_id=$post_id[$count_post]
+        ORDER BY date_commented ASC";
         $comments_result = $conn->query($comments_sql);
         $count_comments[$count_post] = 0;
 
@@ -101,7 +110,7 @@ if($result->num_rows > 0) {
                     $post_commenter_image[$count_post][$count_comments[$count_post]]  = htmlentities($row['image_name']);
                 else
                     $post_commenter_image[$count_post][$count_comments[$count_post]]  = "user.png";
-                $post_comment_content[$count_post][$count_comments[$count_post]] = htmlentities($row['post_comment_content']);
+                $post_comment_content[$count_post][$count_comments[$count_post]] = parseContent(htmlentities($row['post_comment_content']));
                 $post_comment_date_commented[$count_post][$count_comments[$count_post]] = $row['date_commented'];
                 if((time() - $row['date_commented']) >  86400)
                     $post_comment_date_commented[$count_post][$count_comments[$count_post]] =  gmdate("d-m-Y", $row['date_commented']);
@@ -165,9 +174,18 @@ function splitTime($time) {
     </div>
     <div class="section">
         <div class="margined activity-feed">
-            <h1>Activity Feed</h1>
-            <?php
+            <div class="header">
+                <h1>Activity Feed</h1>
+                <div class="input-container">
+                    <input placeholder="Search for users..." id="user-search">
+                    <div class="results">
 
+                    </div>
+                </div>
+            </div>
+            <?php
+                if($count_post == 0)
+                    echo "<p style='text-align:center;font-size:32px;padding-top:100px;text-transform:uppercase;letter-spacing:2px;'>Search for users to follow in the input box!</p>";
                 for($i = 0;$i < $count_post; $i++) {
                     echo "<div class=\"post post-$post_id[$i]\">
                             <div class=\"top-bar\">

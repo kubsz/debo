@@ -83,7 +83,8 @@ if($result->num_rows > 0) {
         else
             $user_image = "user.png";
     }
-}
+} else
+    $user_image = "user.png";
 
 $posts_sql = "SELECT * FROM posts WHERE author_id=$user_id ORDER BY date_posted DESC";
 
@@ -123,12 +124,12 @@ if ($result->num_rows > 0) {
         else
             $user_shares_post[$post_count] = false;
 
-        $comments_sql = "SELECT * FROM post_comments INNER JOIN users ON post_comments.post_commenter_id = users.user_id WHERE post_id=$post_id[$post_count]";
 
-        $comments_sql = "SELECT * FROM ((post_comments
-        INNER JOIN users ON post_comments.post_commenter_id = users.user_id)
-        INNER JOIN user_images ON users.user_id = user_images.user_image_id)
-        WHERE post_id=$post_id[$post_count]";
+        $comments_sql = "SELECT * FROM post_comments
+        INNER JOIN users ON post_comments.post_commenter_id = users.user_id
+        LEFT JOIN user_images ON users.user_id = user_images.user_image_id
+        WHERE post_id=$post_id[$post_count]
+        ORDER BY date_commented ASC";
 
 
         $comments_result = $conn->query($comments_sql);

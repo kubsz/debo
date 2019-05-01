@@ -88,13 +88,21 @@ $(".comment-body > h2").click(function() {
         $("." + num).css("display", "block");
         $("#" + num + " > i").css("transform", "rotate(0deg)");
     }
-})
+});
 
 $(".fa-trash-alt").mouseover(function() {
     $(this).removeClass("far");
     $(this).addClass("fas");
-})
+});
 $(".fa-trash-alt").mouseout(function() {
     $(this).removeClass("fas");
     $(this).addClass("far");
-})
+});
+
+$(".header input").keyup(function() {
+    var val = $(this).val();
+    $.post("/forms/get-users.php", { search: val })
+        .done(function (data) {
+            $(".results").html(data);
+        });
+});

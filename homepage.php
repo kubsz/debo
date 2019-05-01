@@ -75,8 +75,7 @@ if($result->num_rows > 0) {
 </div>
 
 <?php
-if(isset($_COOKIE['logsession'])) include($_SERVER["DOCUMENT_ROOT"]."/include/nav.php");
-else include($_SERVER["DOCUMENT_ROOT"]."/include/nav-nl.php");
+include($_SERVER["DOCUMENT_ROOT"]."/include/nav.php");;
 ?>
 <div class="section sec1">
     <img src="https://www.campaignmonitor.com/assets/uploads/2010/12/background_d.jpg">

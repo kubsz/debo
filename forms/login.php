@@ -31,10 +31,10 @@ if (password_verify($password_input , $password )){
     }
     $login_session = generateRandomString();
 
-    $sql = "UPDATE users SET last_online=?, login_session=? WHERE username=? AND password=?";
+    $sql = "UPDATE users SET last_online=?, login_session=? WHERE username=?";
 
     $ps = $conn->prepare($sql);
-    $ps->bind_param("isss", $date, $login_session, $username, $password);
+    $ps->bind_param("iss", $date, $login_session, $username);
     $ps->execute();
     $result = $ps->get_result();
 

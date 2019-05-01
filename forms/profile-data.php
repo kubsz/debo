@@ -10,7 +10,7 @@ switch($type) {
         $sql = "SELECT users.user_id, users.username, following.user1_id, following.user2_id, following.date_followed, user_images.image_name
         FROM ((users
         INNER JOIN following ON users.user_id = following.user1_id)
-        INNER JOIN user_images ON following.user1_id = user_images.user_image_id)
+        LEFT JOIN user_images ON following.user1_id = user_images.user_image_id)
         WHERE following.user2_id=?
         ORDER BY following.date_followed ASC;";
 
@@ -66,7 +66,7 @@ switch($type) {
         $sql = "SELECT users.user_id, users.username, following.user1_id, following.user2_id, following.date_followed, user_images.image_name
         FROM ((users
         INNER JOIN following ON users.user_id = following.user2_id)
-        INNER JOIN user_images ON following.user2_id = user_images.user_id)
+        LEFT JOIN user_images ON following.user2_id = user_images.user_id)
         WHERE following.user1_id=?
         ORDER BY following.date_followed ASC;";
 
@@ -97,7 +97,7 @@ switch($type) {
                 if($i == 0)
                     echo "<div style='padding-top:15px'></div>";
 
-                echo "<a href='//".strtolower($following_username[$i])."'>
+                echo "<a href='/user/".strtolower($following_username[$i])."'>
                         <div class=\"following-card\">
                             <img src=\"/img/user-images/".$following_image[$i]."\">
                             <div class=\"following-content\">
@@ -117,7 +117,7 @@ switch($type) {
         $sql = "SELECT *
         FROM ((users
         INNER JOIN posts ON users.user_id = posts.author_id)
-        INNER JOIN user_images ON posts.author_id = user_images.user_id)
+        LEFT JOIN user_images ON posts.author_id = user_images.user_id)
         WHERE posts.author_id=?
         ORDER BY posts.date_posted DESC;";
 
@@ -170,7 +170,7 @@ switch($type) {
 
                 $comments_sql = "SELECT * FROM ((post_comments
                 INNER JOIN users ON post_comments.post_commenter_id = users.user_id)
-                INNER JOIN user_images ON users.user_id = user_images.user_image_id)
+                LEFT JOIN user_images ON users.user_id = user_images.user_image_id)
                 WHERE post_id=$post_id[$post_count]";
 
                 $comments_result = $conn->query($comments_sql);
@@ -282,7 +282,7 @@ switch($type) {
         FROM (((posts
         INNER JOIN interactions ON posts.post_id = interactions.post_id)
         INNER JOIN users ON posts.author_id = users.user_id)
-        INNER JOIN user_images ON user_images.user_image_id = posts.author_id)
+        LEFT JOIN user_images ON user_images.user_image_id = posts.author_id)
         WHERE interactions.user_id=? AND interactions.interaction=?
         ORDER BY interactions.date_of_interaction DESC;";
 
@@ -340,7 +340,7 @@ switch($type) {
 
                 $comments_sql = "SELECT * FROM ((post_comments
                 INNER JOIN users ON post_comments.post_commenter_id = users.user_id)
-                INNER JOIN user_images ON users.user_id = user_images.user_image_id)
+                LEFT JOIN user_images ON users.user_id = user_images.user_image_id)
                 WHERE post_id=$post_id[$post_count]";
                 $comments_result = $conn->query($comments_sql);
                 $count_comments[$post_count] = 0;
@@ -443,10 +443,10 @@ switch($type) {
         $int = 2;
 
         $sql = "SELECT *
-        FROM (((posts
-        INNER JOIN interactions ON posts.post_id = interactions.post_id)
-        INNER JOIN users ON posts.author_id = users.user_id)
-        INNER JOIN user_images ON user_images.user_image_id = posts.author_id)
+        FROM posts
+        INNER JOIN interactions ON posts.post_id = interactions.post_id
+        INNER JOIN users ON posts.author_id = users.user_id
+        LEFT JOIN user_images ON user_images.user_image_id = posts.author_id
         WHERE interactions.user_id=? AND interactions.interaction=?
         ORDER BY interactions.date_of_interaction DESC;";
 
@@ -503,7 +503,7 @@ switch($type) {
 
                 $comments_sql = "SELECT * FROM ((post_comments
                 INNER JOIN users ON post_comments.post_commenter_id = users.user_id)
-                INNER JOIN user_images ON users.user_id = user_images.user_image_id)
+                LEFT JOIN user_images ON users.user_id = user_images.user_image_id)
                 WHERE post_id=$post_id[$post_count]";
                 $comments_result = $conn->query($comments_sql);
                 $count_comments[$post_count] = 0;

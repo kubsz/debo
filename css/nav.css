@@ -161,3 +161,10 @@ body {
 .section-404 a:hover {
     text-decoration:underline;
 }
+.link {
+    color:#0096c8;
+    text-decoration:none;
+}
+.link:hover {
+    text-decoration:underline;
+}
