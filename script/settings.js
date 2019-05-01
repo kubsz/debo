@@ -8,13 +8,19 @@ $("#change-username").click(function() {
     $(".inner-modal").html("<h2>Change Username</h2><h4>Current Username: <span class='blue-text'>" + username + "</span></h4><br><label>new username*</label><input id='change-username-input' type='text' placeholder='Enter Your New Username' name='username'><span id='username-error-text' class='error-text'></span><i id='username-error-icon' class='error-icon far fa-times-circle'></i><button class='submit-button' onclick='changeUsername()'>SUBMIT</button>");
 
     openModal(255);
-})
+});
+
+$("#change-bio").click(function() {
+    $(".inner-modal").html("<h2>Change Bio</h2><h4 id='bio-text'>Current Bio: <span class='blue-text'>" + bio + "</span></h4><br><label>new bio*</label><input id='change-bio-input' type=text' placeholder='Enter Your New Bio' name='bio'><span id='bio-error-text' class='error-text'></span><i id='bio-error-icon' class='error-icon far fa-times-circle'></i><button class='submit-button' onclick='changeBio()'>SUBMIT</button>");
+
+    openModal(255);
+});
 
 $("#change-password").click(function() {
-    $(".inner-modal").html("<h2>Change Username</h2><h4>Current Username: <span class='blue-text'>" + username + "</span></h4><br><label>current password*</label><input id='current-password-input' type='password' placeholder='Enter Your Current Password' name='current-password'><span id='current-password-error-text' class='error-text'></span><i id='current-password-error-icon' class='error-icon far fa-times-circle'></i><label>new password*</label><input id='new-password-input' type='password' placeholder='Enter Your New Password' name='new-password'><span id='new-password-error-text' class='error-text'></span><i id='new-password-error-icon' class='error-icon far fa-times-circle'></i><label>confirm new password*</label><input id='confirm-password-input' type='password' placeholder='Confirm Your New Password' name='confirm-password'><span id='confirm-password-error-text' class='error-text'></span><i id='confirm-password-error-icon' class='error-icon far fa-times-circle'></i><button class='submit-button' onclick='changePassword()'>SUBMIT</button>");
+    $(".inner-modal").html("<h2>Change Password</h2><h4>Current Password: <span class='blue-text'>" + username + "</span></h4><br><label>current password*</label><input id='current-password-input' type='password' placeholder='Enter Your Current Password' name='current-password'><span id='current-password-error-text' class='error-text'></span><i id='current-password-error-icon' class='error-icon far fa-times-circle'></i><label>new password*</label><input id='new-password-input' type='password' placeholder='Enter Your New Password' name='new-password'><span id='new-password-error-text' class='error-text'></span><i id='new-password-error-icon' class='error-icon far fa-times-circle'></i><label>confirm new password*</label><input id='confirm-password-input' type='password' placeholder='Confirm Your New Password' name='confirm-password'><span id='confirm-password-error-text' class='error-text'></span><i id='confirm-password-error-icon' class='error-icon far fa-times-circle'></i><button class='submit-button' onclick='changePassword()'>SUBMIT</button>");
 
     openModal(430);
-})
+});
 
 function resetModal() {
     $(".modal").css("transform", "translateY(-200%)");
@@ -92,6 +98,29 @@ function changeUsername() {
         });
 }
 
+function changeBio() {
+    var new_bio = document.getElementById('change-bio-input').value;
+
+    if(new_bio.length < 1 || new_bio.length > 512) {
+        $("#change-bio-input").addClass('error-border');
+        $("#bio-error-icon").css("display","block");
+        invalidInput("Bio is not valid", "bio");
+        return false;
+    }
+    $("#change-bio-input").removeClass('error-border');
+    $("#bio-error-icon").css("display","none");
+    $("#bio-error-text").css("display","none");
+
+    $.post("/forms/change-bio.php", {bio: new_bio})
+        .done(function (data) {
+            if(data == "true") {
+                validInput("Bio updated!", "bio");
+            } else {
+                invalidInput(data, "bio");
+            }
+        });
+}
+
 function changePassword() {
     var current_password = document.getElementById('current-password-input').value;
     var new_password = document.getElementById('new-password-input').value;
@@ -99,8 +128,37 @@ function changePassword() {
 
     $.post("/forms/change-password.php", {current_password: current_password, new_password: new_password, confirm_password: confirm_password })
         .done(function (data) {
-            console.log(data);
+            passwordError(data);
         });
+}
+
+function passwordError(text) {
+    if(text == 'Password changed!') {
+        $("input:password").removeClass('error-border');
+        $("input:password").addClass('valid-border');
+
+        $("input:password").addClass('fa-check-circle');
+        $("input:password").removeClass('fa-times-circle');
+
+        $("#current-password-error-text").html(text);
+        $("#current-password-error-text").css({"display":"block", "color": "green"});
+        $("#current-new-password-error-text").html(text);
+        $("#current-new-password-error-text").css({"display":"block", "color": "green"});
+        $("#current-confirm-password-error-text").html(text);
+        $("#current-confirm-password-error-text").css({"display":"block", "color": "green"});
+    } else {
+        $("input:password").removeClass('valid-border');
+        $("input:password").addClass('error-border');
+        $("input:password").addClass('fa-times-circle');
+        $("input:password").removeClass('fa-check-circle');
+
+        $("#current-password-error-text").html(text);
+        $("#current-password-error-text").css({"display":"block", "color": "#dd000a"});
+        $("#current-new-password-error-text").html(text);
+        $("#current-new-password-error-text").css({"display":"block", "color": "#dd000a"});
+        $("#current-confirm-password-error-text").html(text);
+        $("#current-confirm-password-error-text").css({"display":"block", "color": "#dd000a"});
+    }
 }
 
 function invalidInput(error, type) {

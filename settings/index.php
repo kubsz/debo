@@ -116,12 +116,25 @@ function splitTime($time) {
                 <div class="right-box button" id="change-password"><h2>Change<br>Password</h2></div>
                 <div class="clear"></div>
             </div>
+            <br>
+            <div class="box">
+                <div class="left-box">
+                    <div class="inner-box">
+                        <h2>Bio</h2>
+                        <h3 style="color:rgba(40,40,40,0.75);">Current Bio: <span class="blue-text"><?php echo $bio; ?></span></h3>
+                    </div>
+                </div>
+                <div class="right-box button" id="change-bio"><h2>Change<br>Bio</h2></div>
+                <div class="clear"></div>
+            </div>
+            <br><br>
         </h1>
     </div>
 </body>
 <script>
     var email = "<?php echo $email; ?>";
     var username = "<?php echo $username; ?>";
+    var bio = <?php echo json_encode($bio); ?>;
 </script>
 <script src="/script/nav.js"></script>
 <script src="/script/settings.js"></script>

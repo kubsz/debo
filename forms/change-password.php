@@ -7,7 +7,7 @@ $new_password = $_POST['new_password'];
 $confirm_password = $_POST['confirm_password'];
 
 if($new_password != $confirm_password) {
-    echo "diff passwords";
+    echo "Passwords are not the same";
     die();
 }
 
@@ -24,7 +24,6 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $password = $row["password"];
     }
-    echo "correct password, ";
 } else {
     echo "invalid password";
     die();
@@ -38,8 +37,8 @@ if (password_verify($current_password, $password )){
     $ps->execute();
     $result = $ps->get_result();
 
-    echo "complete";
+    echo "Password changed!";
 } else
-    echo "cant change password";
+    echo "Cannot change password";
 
 ?>

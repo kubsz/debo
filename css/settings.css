@@ -218,6 +218,11 @@ label {
 .valid-border {
     border-color:green !important;
 }
+#bio-text {
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
 
 #current-password-error-icon {
     bottom:274px;
