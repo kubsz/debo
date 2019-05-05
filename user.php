@@ -254,7 +254,7 @@ function splitTime($time) {
                         <input type='hidden' name='user_id' value='$user_id'>
                         <input type=\"button\" value=\"FOLLOW\" class=\"follow-button profile-button\" type=\"submit\">
                     </form>";
-            echo "<div class='profile-button message-button'>Message</div>";
+            echo "<div class='profile-button copy-link-button'>Copy Link</div>";
             echo "</div>";
         }
         ?>

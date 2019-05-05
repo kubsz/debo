@@ -236,3 +236,22 @@ label {
 #new-password-error-text {
     bottom:219px;
 }
+
+@media only screen and (max-width: 900px) {
+    .left-box, .right-box {
+        width:100%;
+        text-align:center;
+    }
+    .inner-box {
+        width:calc(100% - 50px);
+    }
+    .box {
+        height:auto;
+    }
+    .right-box > h2 {
+        margin:15px;
+    }
+    .margined > h1, .margined > h4 {
+        text-align:center;
+    }
+}

@@ -21,6 +21,17 @@ $(".follow-button").click( function() {
     });
 });
 
+$(".copy-link-button").click(function() {
+    var url = document.createElement('input'),
+        text = window.location.href;
+
+    document.body.appendChild(url);
+    url.value = text;
+    url.select();
+    document.execCommand('copy');
+    document.body.removeChild(url);
+});
+
 $(".box").click(function() {
     id = this.id;
     $.post( $("#get-" + id).attr("action"),
